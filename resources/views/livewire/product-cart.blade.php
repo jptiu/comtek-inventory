@@ -54,7 +54,7 @@
 
                                 <td class="align-middle text-center text-center">
                                     <span class="badge badge-info">
-                                        {{ $cart_item->options->stock . ' ' . $cart_item->options->unit }}
+                                        {{ $cart_item->options->stock }}
                                     </span>
 
 {{--                                    {{ $cart_item->options->stock . ' ' . $cart_item->options->unit }}--}}
