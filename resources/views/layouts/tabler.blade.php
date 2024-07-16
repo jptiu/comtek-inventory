@@ -491,12 +491,12 @@
                             <ul class="list-inline list-inline-dots mb-0">
                                 <li class="list-inline-item">
                                     Copyright &copy; {{ now()->year }}
-                                    <a href="." class="link-secondary">CJK Software Solutions</a>.
+                                    <a href="." class="link-secondary">COMTEK</a>.
                                     All rights reserved.
                                 </li>
                                 <li class="list-inline-item">
                                     <a href="./changelog.html" class="link-secondary" rel="noopener">
-                                        v1.0.0
+                                        v1.0.1
                                     </a>
                                 </li>
                             </ul>
