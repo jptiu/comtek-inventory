@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
         $users = collect([
             [
                 'name' => 'Admin',
-                'email' => 'admin@admin.com',
+                'email' => 'admin@comtek.com',
                 'email_verified_at' => now(),
                 'password' => bcrypt('password'),
                 'created_at' => now(),
@@ -25,8 +25,8 @@ class UserSeeder extends Seeder
                 'photo' => 'admin.jpg'
             ],
             [
-                'name' => 'quest',
-                'email' => 'quest@quest.com',
+                'name' => 'Sales',
+                'email' => 'sales@comtek.com',
                 'email_verified_at' => now(),
                 'password' => bcrypt('password'),
                 'created_at' => now(),
@@ -34,8 +34,8 @@ class UserSeeder extends Seeder
                 'photo' => 'admin.jpg'
             ],
             [
-                'name' => 'user',
-                'email' => 'user@user.com',
+                'name' => 'Sales 2',
+                'email' => 'sales2@comtek.com',
                 'email_verified_at' => now(),
                 'password' => bcrypt('password'),
                 'created_at' => now(),

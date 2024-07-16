@@ -31,7 +31,19 @@ class UnitSeeder extends Seeder
                 'slug' => 'piece',
                 'short_code' => 'pc',
                 'user_id'=>1
+            ],
+            [
+                'name' => 'Unit',
+                'slug' => 'unit',
+                'short_code' => 'unit',
+                'user_id'=>1
+            ],[
+                'name' => 'Set',
+                'slug' => 'set',
+                'short_code' => 'set',
+                'user_id'=>1
             ]
+            
         ]);
 
         $units->each(function ($unit){

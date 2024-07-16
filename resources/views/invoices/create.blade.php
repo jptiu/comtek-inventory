@@ -173,7 +173,7 @@
 
                                 <div class="col-lg-12">
                                     <label for="pay" class="form-label required">
-                                        {{ __('Pay Now') }}
+                                        {{ __('Amount Tendered') }}
                                     </label>
 
                                     <input type="number"
