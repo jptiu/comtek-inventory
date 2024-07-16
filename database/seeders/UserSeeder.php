@@ -22,7 +22,10 @@ class UserSeeder extends Seeder
                 'password' => bcrypt('password'),
                 'created_at' => now(),
                 'uuid' => Str::uuid(),
-                'photo' => 'admin.jpg'
+                'photo' => 'admin.jpg',
+                'store_name' => 'COMTEK Computer Parts and Accessories Trading',
+                'store_address' => 'Unit X 2/F, Iponan Commercial Building, Iponan Cagayan de Oro City',
+                'store_email' => 'comtek23@gmail.com'
             ],
             [
                 'name' => 'Sales',
