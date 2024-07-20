@@ -33,7 +33,25 @@ class OrderController extends Controller
 
     public function create()
     {
-        $products = Product::where('user_id', auth()->id())->with(['category', 'unit'])->get();
+        $products = Product::where('user_id', auth()->id())->with(['category', 'unit'])->paginate();
+
+        $customers = Customer::where('user_id', auth()->id())->get(['id', 'name']);
+
+        $carts = Cart::content();
+
+        return view('orders.create', [
+            'products' => $products,
+            'customers' => $customers,
+            'carts' => $carts,
+        ]);
+    }
+
+    public function createSearch(Request $request)
+    {
+        $query = $request->input('search');
+        $products = Product::when($query, function ($queryBuilder) use ($query) {
+            $queryBuilder->where('name', 'LIKE', "%{$query}%");
+        })->paginate(10);
 
         $customers = Customer::where('user_id', auth()->id())->get(['id', 'name']);
 
@@ -123,7 +141,7 @@ class OrderController extends Controller
         if (count($stockAlertProducts) > 0) {
             $listAdmin = [];
             foreach (User::all('email') as $admin) {
-                $listAdmin [] = $admin->email;
+                $listAdmin[] = $admin->email;
             }
             Mail::to($listAdmin)->send(new StockAlert($stockAlertProducts));
         }
@@ -165,7 +183,7 @@ class OrderController extends Controller
         $order->update([
             'order_status' => 2
         ]);
-        $orders = Order::where('user_id',auth()->id())->count();
+        $orders = Order::where('user_id', auth()->id())->count();
 
         return redirect()
             ->route('orders.index', [

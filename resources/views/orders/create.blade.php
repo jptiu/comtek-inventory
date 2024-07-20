@@ -190,11 +190,16 @@
                     </div>
                     <div class="card-body">
                         <div class="col-lg-12">
+                            <form action="{{ route('order.search') }}" method="GET">
+                                <div class="input-group mb-3">
+                                    <input type="text" name="search" class="form-control" placeholder="Search products..." value="{{ request()->query('search') }}">
+                                    <button class="btn btn-outline-secondary" type="submit">Search</button>
+                                </div>
+                            </form>
                             <div class="table-responsive">
-                                <table class="table table-striped table-bordered align-middle">
+                                <table class="table table-striped table-bordered align-middle datatable">
                                     <thead class="thead-light">
                                         <tr>
-                                            {{--- <th scope="col">No.</th> ---}}
                                             <th scope="col">Name</th>
                                             <th scope="col">Quantity</th>
                                             <th scope="col">Unit</th>
@@ -205,13 +210,6 @@
                                     <tbody>
                                         @forelse ($products as $product)
                                         <tr>
-                                            {{---
-                                            <td>
-                                                <div style="max-height: 80px; max-width: 80px;">
-                                                    <img class="img-fluid"  src="{{ $product->product_image ? asset('storage/products/'.$product->product_image) : asset('assets/img/products/default.webp') }}">
-                                                </div>
-                                            </td>
-                                            ---}}
                                             <td class="text-center">
                                                 {{ $product->name }}
                                             </td>
@@ -248,6 +246,12 @@
                                         @endforelse
                                     </tbody>
                                 </table>
+                            </div>
+                            <div class="card-footer d-flex align-items-center">
+                        
+                                <ul class="pagination m-0 ms-auto">
+                                    {{ $products->links() }}    
+                                </ul>
                             </div>
                         </div>
 
