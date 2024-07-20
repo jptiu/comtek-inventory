@@ -33,6 +33,8 @@ class ProductImportController extends Controller
             $data = array();
             foreach ($row_range as $row) {
                 $data[] = [
+                    'uuid' => Str::uuid(),
+                    'user_id' => 1,
                     'name'          => $sheet->getCell('A' . $row)->getValue(),
                     'slug'          => $sheet->getCell('B' . $row)->getValue(),
                     'category_id'   => $sheet->getCell('C' . $row)->getValue(),
@@ -44,6 +46,7 @@ class ProductImportController extends Controller
                     'selling_price' => $sheet->getCell('I' . $row)->getValue(),
                     'product_image' => $sheet->getCell('J' . $row)->getValue(),
                     'notes' => $sheet->getCell('K' . $row)->getValue(),
+                    'tax_type' => 0,
                 ];
                 $startcount++;
             }
