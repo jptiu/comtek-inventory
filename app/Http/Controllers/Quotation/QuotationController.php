@@ -132,4 +132,13 @@ class QuotationController extends Controller
             ->route('quotations.index')
             ->with('success', 'Quotation Completed!');
     }
+
+    public function downloadQuotation($uuid)
+    {
+        $quotation = Quotation::with(['customer', 'quotationDetails'])->where('uuid', $uuid)->firstOrFail();
+
+        return view('quotations.print-invoice', [
+            'quotation' => $quotation,
+        ]);
+    }
 }

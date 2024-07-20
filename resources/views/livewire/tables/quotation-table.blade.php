@@ -109,6 +109,8 @@
                             <x-button.complete class="btn-icon" route="{{ route('quotations.update', $quotation->uuid) }}" onclick="return confirm('Are you sure to complete quotation no. {{ $quotation->reference }}?')"/>
                             <x-button.delete class="btn-icon" route="{{ route('quotations.destroy', $quotation) }}" onclick="return confirm('Are you sure to cancel Quotation NO. {{ $quotation->reference }}?')"/>
                         @endif
+                        <x-button.print class="btn-icon"
+                                route="{{ route('quotations.downloadInvoice', $quotation->uuid) }}" />
                     </td>
                 </tr>
             @empty
