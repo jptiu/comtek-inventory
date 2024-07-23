@@ -29,13 +29,17 @@ class DashboardController extends Controller
 
         $weeklySales = Order::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->sum('total');
         $weeklyTotal = Order::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count();
-
+        $weeklyQuote = Quotation::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->sum('total_amount');
+        $weeklyQuoteCount = Quotation::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count();
+        
         $monthlySales = Order::whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->sum('total');
         $monthlyTotal = Order::whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->count();
-
+        $monthlyQuote = Quotation::whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->sum('total_amount');
+        
         $yearlySales = Order::whereBetween('created_at', [Carbon::now()->startOfYear(), Carbon::now()->endOfYear()])->sum('total');
         $yearlyTotal = Order::whereBetween('created_at', [Carbon::now()->startOfYear(), Carbon::now()->endOfYear()])->count();
-
+        $yearlyQuote = Quotation::whereBetween('created_at', [Carbon::now()->startOfYear(), Carbon::now()->endOfYear()])->sum('total_amount');
+        
         return view('dashboard', [
             'products' => $products,
             'orders' => $orders,
@@ -46,11 +50,11 @@ class DashboardController extends Controller
             'todayOrders' => $todayOrders,
             'categories' => $categories,
             'quotations' => $quotations,
-            'weeklySales' => $weeklySales,
-            'weeklyTotal' => $weeklyTotal,
-            'monthlySales' => $monthlySales,
+            'weeklySales' => $weeklySales+$weeklyQuote,
+            'weeklyTotal' => $weeklyTotal+$weeklyQuoteCount,
+            'monthlySales' => $monthlySales+$monthlyQuote,
             'monthlyTotal' => $monthlyTotal,
-            'yearlySales' => $yearlySales,
+            'yearlySales' => $yearlySales+$yearlyQuote,
             'yearlyTotal' => $yearlyTotal,
         ]);
     }
