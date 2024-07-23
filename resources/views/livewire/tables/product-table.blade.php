@@ -73,6 +73,12 @@
                         </a>
                     </th>
                     <th scope="col" class="align-middle text-center">
+                        <a wire:click.prevent="sortBy('selling_price')" href="#" role="button">
+                            {{ __('Price') }}
+                            @include('inclues._sort-icon', ['field' => 'selling_price'])
+                        </a>
+                    </th>
+                    <th scope="col" class="align-middle text-center">
                         <a wire:click.prevent="sortBy('code')" href="#" role="button">
                             {{ __('Code') }}
                             @include('inclues._sort-icon', ['field' => 'code'])
@@ -108,6 +114,9 @@
                         </td>
                         <td class="align-middle text-center">
                             {{ $product->name }}
+                        </td>
+                        <td class="align-middle text-center">
+                            {{ Number::currency($product->selling_price * 30/100, 'PHP') }}
                         </td>
                         <td class="align-middle text-center">
                             {{ $product->code }}
