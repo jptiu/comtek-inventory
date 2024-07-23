@@ -116,7 +116,7 @@
                             {{ $product->name }}
                         </td>
                         <td class="align-middle text-center">
-                            {{ Number::currency($product->selling_price * 30/100, 'PHP') }}
+                            {{ Number::currency($product->selling_price * (1+ 30/100), 'PHP') }}
                         </td>
                         <td class="align-middle text-center">
                             {{ $product->code }}

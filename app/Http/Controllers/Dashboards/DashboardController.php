@@ -27,6 +27,15 @@ class DashboardController extends Controller
         $categories = Category::where("user_id", auth()->id())->count();
         $quotations = Quotation::where("user_id", auth()->id())->count();
 
+        $weeklySales = Order::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->sum('total');
+        $weeklyTotal = Order::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count();
+
+        $monthlySales = Order::whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->sum('total');
+        $monthlyTotal = Order::whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->count();
+
+        $yearlySales = Order::whereBetween('created_at', [Carbon::now()->startOfYear(), Carbon::now()->endOfYear()])->sum('total');
+        $yearlyTotal = Order::whereBetween('created_at', [Carbon::now()->startOfYear(), Carbon::now()->endOfYear()])->count();
+
         return view('dashboard', [
             'products' => $products,
             'orders' => $orders,
@@ -36,7 +45,13 @@ class DashboardController extends Controller
             'todayQuotations' => $todayQuotations,
             'todayOrders' => $todayOrders,
             'categories' => $categories,
-            'quotations' => $quotations
+            'quotations' => $quotations,
+            'weeklySales' => $weeklySales,
+            'weeklyTotal' => $weeklyTotal,
+            'monthlySales' => $monthlySales,
+            'monthlyTotal' => $monthlyTotal,
+            'yearlySales' => $yearlySales,
+            'yearlyTotal' => $yearlyTotal,
         ]);
     }
 }
