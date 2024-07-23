@@ -18,7 +18,7 @@ if (!function_exists('format_currency')) {
 
         $settings = settings();
         $position = $settings->default_currency_position ?? '2';
-        $symbol = $settings->currency->symbol ?? ' $';
+        $symbol = $settings->currency->symbol ?? ' ₱';
         $decimal_separator = $settings->currency->decimal_separator ?? '.';
         $thousand_separator = $settings->currency->thousand_separator ?? ',';
 
