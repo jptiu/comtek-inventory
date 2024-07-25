@@ -4162,7 +4162,6 @@ table th{
 /** Invoice 16 start **/
 .invoice-16 {
     background: #fff;
-    min-height: 100vh;
     position: relative;
     display: flex;
     justify-content: center;
@@ -4179,7 +4178,6 @@ table th{
     background: #fff;
     max-width: 1296px;
     margin: 0 auto;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .invoice-16 .invoice-info p {
@@ -4221,7 +4219,7 @@ table th{
 
 .invoice-16 .default-table thead th {
     position: relative;
-    padding: 20px 30px;
+    padding: 5px 10px;
     font-size: 16px;
     color: #25cc7e;
     font-weight: 500;
@@ -4236,7 +4234,7 @@ table th{
 
 .invoice-16 .default-table tr td {
     position: relative;
-    padding: 21px 30px;
+    padding: 10px 10px;
     font-size: 14px;
     color: #535353;
     font-weight: 400;
@@ -4255,7 +4253,7 @@ table th{
 }
 
 .invoice-16 .invoice-top {
-    padding: 100px 150px 50px;
+    padding: 30px 60px 30px;
 }
 
 .invoice-16 .invoice-top .invoice {
@@ -4266,11 +4264,18 @@ table th{
     font-weight: 600;
     margin-bottom: 0;
     color: #25cc7e;
-    font-size: 22px;
+    font-size: 16px;
+}
+
+.new-invoice-ref{
+    font-weight: 600;
+    margin-bottom: 0;
+    color: #25cc7e;
+    font-size: 16px;
 }
 
 .invoice-16 .invoice-info {
-    padding: 0 150px 50px;
+    padding: 0 60px 10px;
 }
 
 .invoice-16 .invoice-info .inv-from-2 {
@@ -4279,7 +4284,7 @@ table th{
 }
 
 .invoice-16 .order-summary{
-    padding: 0 150px 100px;
+    padding: 0 60px 30px;
 }
 
 .invoice-16 .invoice-informeshon-footer{

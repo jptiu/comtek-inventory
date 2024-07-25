@@ -25,52 +25,38 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="invoice-inner-9" id="invoice_wrapper">
-                        <div class="invoice-top">
-                            <div class="row">
-                                <div class="col-lg-6 col-sm-6">
-                                    <div class="logo">
-                                        <h1>{{ Str::title(auth()->user()->store_name) }}</h1>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-sm-6">
-                                    <div class="invoice">
-                                        <h1>
-                                            Quotation # <span>{{ $quotation->invoice_no }}</span>
-                                        </h1>
-                                    </div>
+                        <div class="invoice-top" style="display:flex; justify-content: center; align-items: center; align-content: center;">
+                            <div style="display: inline-flex;">
+                                <img src="{{ asset('static/logo.png') }}" width="70" height="70" alt="Comtek">
+                                <div style="margin-left: 15px;font-weight: 600">
+                                    @php
+                                        $user = auth()->user();
+                                    @endphp
+                                    {{ Str::title($user->store_name) }}<br>
+                                    {{ $user->store_address }}<br>
+                                    {{ $user->store_email }}<br>
                                 </div>
                             </div>
                         </div>
                         <div class="invoice-info">
                             <div class="row">
-                                <div class="col-sm-6 mb-50">
-                                    <div class="invoice-number">
-                                        <h4 class="inv-title-1">
-                                            Quotation date:
-                                        </h4>
-                                        <p class="invo-addr-1">
-                                            {{ $quotation->order_date }}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-6 mb-50">
-                                    <h4 class="inv-title-1">Customer</h4>
-                                    <p class="inv-from-1">{{ $quotation->customer->name }}</p>
-                                    <p class="inv-from-1">{{ $quotation->customer->phone }}</p>
-                                    <p class="inv-from-1">{{ $quotation->customer->email }}</p>
-                                    <p class="inv-from-2">{{ $quotation->customer->address }}</p>
+                                <div class="col-sm-6 mb-30">
                                 </div>
                                 @php
                                     $user = auth()->user();
                                 @endphp
-                                <div class="col-sm-6 text-end mb-50">
-                                    <h4 class="inv-title-1">Store</h4>
-                                    <p class="inv-from-1">{{ Str::title($user->store_name) }}</p>
-                                    <p class="inv-from-1">{{ $user->store_phone }}</p>
-                                    <p class="inv-from-1">{{ $user->store_email }}</p>
-                                    <p class="inv-from-2">{{ $user->store_address }}</p>
+                                <div class="col-sm-6 text-end mb-30">
+                                    <div>
+                                        <p class="new-invoice-ref">
+                                            Quotation # <span>{{ $quotation->invoice_no }}</span>
+                                        </p>
+                                        <p class="invo-addr-1">
+                                            Date: {{ $quotation->order_date }}
+                                        </p>
+                                        <p class="inv-from-1">
+                                            {{ Str::title($user->store_name) }}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
