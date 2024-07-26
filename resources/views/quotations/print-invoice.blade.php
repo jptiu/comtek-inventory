@@ -39,9 +39,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="invoice-info">
+                        <div class="invoice-info" style="padding-bottom: 20px;">
                             <div class="row">
                                 <div class="col-sm-6 mb-15">
+                                    {{-- <h4 class="inv-title-1">Customer</h4> --}}
+                                    <p class="inv-from-2" style="font-weight:600;">{{ $quotation->customer->name }}</p>
+                                    <p class="inv-from-2">{{ $quotation->customer->address }}</p>
+                                    <p class="inv-from-2">{{ $quotation->customer->phone }}</p>
+                                    <p class="inv-from-2">{{ $quotation->customer->email }}</p>
                                 </div>
                                 @php
                                     $user = auth()->user();
@@ -58,6 +63,7 @@
                                 </div>
                             </div>
                         </div>
+                        <h5 class="align-middle text-center">Quotation</h5>
                         <div class="order-summary">
                             <div class="table-outer">
                                 <table class="default-table invoice-table">
