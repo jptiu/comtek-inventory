@@ -4166,7 +4166,7 @@ table th{
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 27px 0 30px;
+    padding: 0px 0 30px;
     font-family: 'Poppins', sans-serif;
 }
 
@@ -4253,7 +4253,7 @@ table th{
 }
 
 .invoice-16 .invoice-top {
-    padding: 30px 60px 30px;
+    padding: 20px 60px 20px;
 }
 
 .invoice-16 .invoice-top .invoice {

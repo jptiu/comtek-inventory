@@ -28,7 +28,7 @@
                     <div class="invoice-inner-9" id="invoice_wrapper">
                         <div class="invoice-top" style="display:flex; justify-content: center; align-items: center; align-content: center;">
                             <div style="display: inline-flex;">
-                                <img src="{{ asset('static/logo.png') }}" width="70" height="70" alt="Comtek">
+                                <img src="{{ asset('static/logo.png') }}" width="90" height="90" alt="Comtek">
                                 <div style="margin-left: 15px;font-weight: 600">
                                     @php
                                         $user = auth()->user();
@@ -36,6 +36,7 @@
                                     {{ Str::title($user->store_name) }}<br>
                                     {{ $user->store_address }}<br>
                                     {{ $user->store_email }}<br>
+                                    {{ $user->store_phone }}<br>
                                 </div>
                             </div>
                         </div>
@@ -48,14 +49,11 @@
                                 @endphp
                                 <div class="col-sm-6 text-end mb-30">
                                     <div>
-                                        <p class="new-invoice-ref">
+                                        <p class="new-invoice-ref" style="font-size: 14px !important">
                                             Invoice # <span>{{ $order->invoice_no }}</span>
                                         </p>
-                                        <p class="invo-addr-1">
+                                        <p class="invo-addr-1" style="font-size: 14px !important">
                                             Date: {{ $order->order_date }}
-                                        </p>
-                                        <p class="inv-from-1">
-                                            {{ Str::title($user->store_name) }}
                                         </p>
                                     </div>
                                 </div>
@@ -66,10 +64,10 @@
                                 <table class="default-table invoice-table">
                                     <thead>
                                         <tr>
-                                            <th class="align-middle">Item</th>
-                                            <th class="align-middle text-center">Price</th>
-                                            <th class="align-middle text-center">Quantity</th>
-                                            <th class="align-middle text-center">Subtotal</th>
+                                            <th class="align-middle" style="font-size: 14px !important">Item</th>
+                                            <th class="align-middle text-center" style="font-size: 14px !important">Price</th>
+                                            <th class="align-middle text-center" style="font-size: 14px !important">Quantity</th>
+                                            <th class="align-middle text-center" style="font-size: 14px !important">Subtotal</th>
                                         </tr>
                                     </thead>
 
@@ -77,48 +75,48 @@
                                         {{--                                            @foreach ($orderDetails as $item) --}}
                                         @foreach ($order->details as $item)
                                             <tr>
-                                                <td class="align-middle">
+                                                <td class="align-middle" style="font-size: 12px !important">
                                                     {{ $item->product->name }}
                                                 </td>
-                                                <td class="align-middle text-center">
+                                                <td class="align-middle text-center" style="font-size: 12px !important">
                                                     {{ Number::currency($item->unitcost, 'PHP') }}
                                                 </td>
-                                                <td class="align-middle text-center">
+                                                <td class="align-middle text-center" style="font-size: 12px !important">
                                                     {{ $item->quantity }}
                                                 </td>
-                                                <td class="align-middle text-center">
+                                                <td class="align-middle text-center" style="font-size: 12px !important">
                                                     {{ Number::currency($item->total, 'PHP') }}
                                                 </td>
                                             </tr>
                                         @endforeach
 
                                         <tr>
-                                            <td colspan="3" class="text-end">
+                                            <td colspan="3" class="text-end" style="font-size: 14px !important">
                                                 <strong>
                                                     Subtotal
                                                 </strong>
                                             </td>
-                                            <td class="align-middle text-center">
+                                            <td class="align-middle text-center" style="font-size: 12px !important">
                                                 <strong>
                                                     {{ Number::currency($order->sub_total, 'PHP') }}
                                                 </strong>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="3" class="text-end">
+                                            <td colspan="3" class="text-end" style="font-size: 14px !important">
                                                 <strong>Tax</strong>
                                             </td>
-                                            <td class="align-middle text-center">
+                                            <td class="align-middle text-center" style="font-size: 12px !important">
                                                 <strong>
                                                     {{ Number::currency($order->vat, 'PHP') }}
                                                 </strong>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="3" class="text-end">
+                                            <td colspan="3" class="text-end" style="font-size: 14px !important">
                                                 <strong>Total</strong>
                                             </td>
-                                            <td class="align-middle text-center">
+                                            <td class="align-middle text-center" style="font-size: 12px !important">
                                                 <strong>
                                                     {{ Number::currency($order->total, 'PHP') }}
                                                 </strong>
