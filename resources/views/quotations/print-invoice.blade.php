@@ -48,10 +48,10 @@
                                 <div class="col-sm-6 text-end mb-30">
                                     <div>
                                         <p class="new-invoice-ref">
-                                            Quotation # <span>{{ $quotation->invoice_no }}</span>
+                                            Quotation # <span>{{ $quotation->reference }}</span>
                                         </p>
                                         <p class="invo-addr-1">
-                                            Date: {{ $quotation->order_date }}
+                                            Date: {{ $quotation->date }}
                                         </p>
                                         <p class="inv-from-1">
                                             {{ Str::title($user->store_name) }}
@@ -80,18 +80,18 @@
                                                     {{ $item->product->name }}
                                                 </td>
                                                 <td class="align-middle text-center">
-                                                    {{-- {{ Number::currency($item->unitcost, 'PHP') }} --}}
+                                                    {{ Number::currency($item->unit_price, 'PHP') }}
                                                 </td>
                                                 <td class="align-middle text-center">
                                                     {{ $item->quantity }}
                                                 </td>
                                                 <td class="align-middle text-center">
-                                                    {{-- {{ Number::currency($item->total, 'PHP') }} --}}
+                                                    {{ Number::currency($item->sub_total, 'PHP') }}
                                                 </td>
                                             </tr>
                                         @endforeach
 
-                                        <tr>
+                                        {{-- <tr>
                                             <td colspan="3" class="text-end">
                                                 <strong>
                                                     Subtotal
@@ -99,7 +99,17 @@
                                             </td>
                                             <td class="align-middle text-center">
                                                 <strong>
-                                                    {{-- {{ Number::currency($quotation->sub_total, 'PHP') }} --}}
+                                                    {{ $quotation->sub_total }}
+                                                </strong>
+                                            </td>
+                                        </tr> --}}
+                                        <tr>
+                                            <td colspan="3" class="text-end">
+                                                <strong>Discount</strong>
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                <strong>
+                                                    {{ Number::currency($quotation->discount_amount, 'PHP') }}
                                                 </strong>
                                             </td>
                                         </tr>
@@ -109,7 +119,7 @@
                                             </td>
                                             <td class="align-middle text-center">
                                                 <strong>
-                                                    {{-- {{ Number::currency($quotation->vat, 'PHP') }} --}}
+                                                    {{ Number::currency($quotation->tax_amount, 'PHP') }}
                                                 </strong>
                                             </td>
                                         </tr>
@@ -119,7 +129,7 @@
                                             </td>
                                             <td class="align-middle text-center">
                                                 <strong>
-                                                    {{-- {{ Number::currency($quotation->total, 'PHP') }} --}}
+                                                    {{ Number::currency($quotation->total_amount, 'PHP') }}
                                                 </strong>
                                             </td>
                                         </tr>
