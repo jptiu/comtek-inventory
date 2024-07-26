@@ -24,7 +24,7 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::where('user_id', auth()->id())->count();
+        $orders = Order::count();
 
         return view('orders.index', [
             'orders' => $orders
@@ -33,9 +33,9 @@ class OrderController extends Controller
 
     public function create()
     {
-        $products = Product::where('user_id', auth()->id())->with(['category', 'unit'])->paginate();
+        $products = Product::with(['category', 'unit'])->paginate();
 
-        $customers = Customer::where('user_id', auth()->id())->get(['id', 'name']);
+        $customers = Customer::get(['id', 'name']);
 
         $carts = Cart::content();
 
@@ -53,7 +53,7 @@ class OrderController extends Controller
             $queryBuilder->where('name', 'LIKE', "%{$query}%");
         })->paginate(10);
 
-        $customers = Customer::where('user_id', auth()->id())->get(['id', 'name']);
+        $customers = Customer::get(['id', 'name']);
 
         $carts = Cart::content();
 
@@ -183,7 +183,7 @@ class OrderController extends Controller
         $order->update([
             'order_status' => 2
         ]);
-        $orders = Order::where('user_id', auth()->id())->count();
+        $orders = Order::count();
 
         return redirect()
             ->route('orders.index', [

@@ -25,7 +25,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="invoice-inner-9" id="invoice_wrapper">
-                        <div class="invoice-top" style="display:flex; justify-content: center; align-items: center; align-content: center;">
+                        <div class="invoice-top"
+                            style="display:flex; justify-content: center; align-items: center; align-content: center;">
                             <div style="display: inline-flex;">
                                 <img src="{{ asset('static/logo.png') }}" width="90" height="90" alt="Comtek">
                                 <div style="margin-left: 15px;font-weight: 600">
@@ -69,12 +70,17 @@
                                 <table class="default-table invoice-table">
                                     <thead>
                                         <tr>
-                                            <th class="align-middle" style="font-size: 14px !important; width: 20px;">Item</th>
-                                            <th class="align-middle text-center" style="font-size: 14px !important; width: 20px;">QTY</th>
-                                            <th class="align-middle text-center" style="font-size: 14px !important; width: 20px;">Unit</th>
+                                            <th class="align-middle" style="font-size: 14px !important; width: 20px;">
+                                                Item</th>
+                                            <th class="align-middle text-center"
+                                                style="font-size: 14px !important; width: 20px;">QTY</th>
+                                            <th class="align-middle text-center"
+                                                style="font-size: 14px !important; width: 20px;">Unit</th>
                                             <th class="align-middle" style="font-size: 14px !important">Description</th>
-                                            <th class="align-middle text-center" style="font-size: 14px !important">Price</th>
-                                            <th class="align-middle text-center" style="font-size: 14px !important">Subtotal</th>
+                                            <th class="align-middle text-center" style="font-size: 14px !important">
+                                                Price</th>
+                                            <th class="align-middle text-center" style="font-size: 14px !important">
+                                                Subtotal</th>
                                         </tr>
                                     </thead>
 
@@ -116,7 +122,7 @@
                                             </td>
                                         </tr> --}}
                                         <tr>
-                                            <td colspan="5" class="text-end" style="font-size: 14px !important">
+                                            <td colspan="5" class="text-end" style="font-size: 12px !important">
                                                 <strong>Discount</strong>
                                             </td>
                                             <td class="align-middle text-center" style="font-size: 12px !important">
@@ -126,7 +132,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="5" class="text-end" style="font-size: 14px !important">
+                                            <td colspan="5" class="text-end" style="font-size: 12px !important">
                                                 <strong>Tax</strong>
                                             </td>
                                             <td class="align-middle text-center" style="font-size: 12px !important">
@@ -136,7 +142,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="5" class="text-end" style="font-size: 14px !important">
+                                            <td colspan="5" class="text-end" style="font-size: 12px !important">
                                                 <strong>Total</strong>
                                             </td>
                                             <td class="align-middle text-center" style="font-size: 12px !important">
@@ -147,6 +153,22 @@
                                         </tr>
                                     </tbody>
                                 </table>
+                            </div>
+                            <div class="row" style="margin-top: 50px;">
+                                <div class="col-sm-5 text-start mb-15" style="padding-left: 5%">
+                                    <div class="text-right">
+                                        Prepared by: <br><br>
+                                        <b>{{ $quotation->user->name }}</b> <br>
+                                        Sales Manager
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 text-start mb-15" style="padding-left: 25%">
+                                    <div class="text-right">
+                                        Approved by: <br><br>
+                                        <b>Jeff A. Roa</b><br>
+                                        Technical In-Charge
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         {{-- <div class="invoice-informeshon-footer">
