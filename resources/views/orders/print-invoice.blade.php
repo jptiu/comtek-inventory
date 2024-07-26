@@ -42,12 +42,12 @@
                         </div>
                         <div class="invoice-info">
                             <div class="row">
-                                <div class="col-sm-6 mb-30">
+                                <div class="col-sm-6 mb-15">
                                 </div>
                                 @php
                                     $user = auth()->user();
                                 @endphp
-                                <div class="col-sm-6 text-end mb-30">
+                                <div class="col-sm-6 text-end mb-15">
                                     <div>
                                         <p class="new-invoice-ref" style="font-size: 14px !important">
                                             Invoice # <span>{{ $order->invoice_no }}</span>
