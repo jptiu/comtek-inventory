@@ -164,7 +164,7 @@ class OrderController extends Controller
 
     public function downloadInvoice($uuid)
     {
-        $order = Order::with(['customer', 'details'])->where('uuid', $uuid)->firstOrFail();
+        $order = Order::with(['customer', 'details', 'unit'])->where('uuid', $uuid)->firstOrFail();
         // TODO: Need refactor
         //dd($order);
 

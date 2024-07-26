@@ -53,7 +53,7 @@
                                             Invoice # <span>{{ $order->invoice_no }}</span>
                                         </p>
                                         <p class="invo-addr-1" style="font-size: 14px !important">
-                                            Date: {{ $order->order_date }}
+                                            Date: {{ $order->order_date->format('d-m-Y') }}
                                         </p>
                                     </div>
                                 </div>
@@ -64,9 +64,11 @@
                                 <table class="default-table invoice-table">
                                     <thead>
                                         <tr>
-                                            <th class="align-middle" style="font-size: 14px !important">Item</th>
+                                            <th class="align-middle" style="font-size: 14px !important; width: 20px;">Item</th>
+                                            <th class="align-middle text-center" style="font-size: 14px !important; width: 20px;">QTY</th>
+                                            <th class="align-middle text-center" style="font-size: 14px !important; width: 20px;">Unit</th>
+                                            <th class="align-middle" style="font-size: 14px !important">Description</th>
                                             <th class="align-middle text-center" style="font-size: 14px !important">Price</th>
-                                            <th class="align-middle text-center" style="font-size: 14px !important">Quantity</th>
                                             <th class="align-middle text-center" style="font-size: 14px !important">Subtotal</th>
                                         </tr>
                                     </thead>
@@ -76,13 +78,19 @@
                                         @foreach ($order->details as $item)
                                             <tr>
                                                 <td class="align-middle" style="font-size: 12px !important">
+                                                    {{ $item->id }}
+                                                </td>
+                                                <td class="align-middle text-center" style="font-size: 12px !important">
+                                                    {{ $item->quantity }}
+                                                </td>
+                                                <td class="align-middle text-center" style="font-size: 12px !important">
+                                                    {{ $item->product->unit->name }}
+                                                </td>
+                                                <td class="align-middle" style="font-size: 12px !important">
                                                     {{ $item->product->name }}
                                                 </td>
                                                 <td class="align-middle text-center" style="font-size: 12px !important">
                                                     {{ Number::currency($item->unitcost, 'PHP') }}
-                                                </td>
-                                                <td class="align-middle text-center" style="font-size: 12px !important">
-                                                    {{ $item->quantity }}
                                                 </td>
                                                 <td class="align-middle text-center" style="font-size: 12px !important">
                                                     {{ Number::currency($item->total, 'PHP') }}
@@ -91,7 +99,7 @@
                                         @endforeach
 
                                         <tr>
-                                            <td colspan="3" class="text-end" style="font-size: 14px !important">
+                                            <td colspan="5" class="text-end" style="font-size: 14px !important">
                                                 <strong>
                                                     Subtotal
                                                 </strong>
@@ -103,7 +111,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="3" class="text-end" style="font-size: 14px !important">
+                                            <td colspan="5" class="text-end" style="font-size: 14px !important">
                                                 <strong>Tax</strong>
                                             </td>
                                             <td class="align-middle text-center" style="font-size: 12px !important">
@@ -113,7 +121,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="3" class="text-end" style="font-size: 14px !important">
+                                            <td colspan="5" class="text-end" style="font-size: 14px !important">
                                                 <strong>Total</strong>
                                             </td>
                                             <td class="align-middle text-center" style="font-size: 12px !important">
