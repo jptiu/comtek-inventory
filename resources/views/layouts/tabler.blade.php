@@ -380,7 +380,7 @@
 
 
 
-                            <li
+                            {{-- <li
                                 class="nav-item dropdown {{ request()->is('suppliers*', 'customers*') ? 'active' : null }}">
                                 <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown"
                                     data-bs-auto-close="outside" role="button" aria-expanded="false">
@@ -412,6 +412,44 @@
                                         </div>
                                     </div>
                                 </div>
+                            </li> --}}
+                            <li class="nav-item {{ request()->is('customers*') ? 'active' : null }}">
+                                <a class="nav-link" href="{{ route('customers.index') }}">
+                                    <span
+                                        class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/home -->
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon-tabler icon-tabler-file" width="24" height="24"
+                                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                                            <path
+                                                d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
+                                        </svg>
+                                    </span>
+                                    <span class="nav-link-title">
+                                        {{ __('Customers') }}
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="nav-item {{ request()->is('suppliers*') ? 'active' : null }}">
+                                <a class="nav-link" href="{{ route('suppliers.index') }}">
+                                    <span
+                                        class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/home -->
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon-tabler icon-tabler-file" width="24" height="24"
+                                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                                            <path
+                                                d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
+                                        </svg>
+                                    </span>
+                                    <span class="nav-link-title">
+                                        {{ __('Suppliers') }}
+                                    </span>
+                                </a>
                             </li>
 
 
@@ -453,7 +491,7 @@
                             </li>
                         </ul>
 
-                        <div class="my-2 my-md-0 flex-grow-1 flex-md-grow-0 order-first order-md-last">
+                        {{-- <div class="my-2 my-md-0 flex-grow-1 flex-md-grow-0 order-first order-md-last">
                             <form action="./" method="get" autocomplete="off" novalidate>
                                 <div class="input-icon">
                                     <span class="input-icon-addon">
@@ -471,7 +509,7 @@
                                         class="form-control" placeholder="Search…" aria-label="Search in website">
                                 </div>
                             </form>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -496,7 +534,7 @@
                                 </li>
                                 <li class="list-inline-item">
                                     <a href="./changelog.html" class="link-secondary" rel="noopener">
-                                        v1.0.1
+                                        {{ env('Version') }}
                                     </a>
                                 </li>
                             </ul>
