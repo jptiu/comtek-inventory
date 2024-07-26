@@ -25,7 +25,8 @@ class UserSeeder extends Seeder
                 'photo' => 'admin.jpg',
                 'store_name' => 'COMTEK Computer Parts and Accessories Trading',
                 'store_address' => 'Unit X 2/F, Iponan Commercial Building, Iponan Cagayan de Oro City',
-                'store_email' => 'comtek23@gmail.com'
+                'store_email' => 'comtek23@gmail.com',
+                'store_phone' => '09066981847'
             ],
             [
                 'name' => 'Sales',
@@ -34,7 +35,11 @@ class UserSeeder extends Seeder
                 'password' => bcrypt('password'),
                 'created_at' => now(),
                 'uuid' => Str::uuid(),
-                'photo' => 'admin.jpg'
+                'photo' => 'admin.jpg',
+                'store_name' => 'COMTEK Computer Parts and Accessories Trading',
+                'store_address' => 'Unit X 2/F, Iponan Commercial Building, Iponan Cagayan de Oro City',
+                'store_email' => 'comtek23@gmail.com',
+                'store_phone' => '09066981847'
             ],
             [
                 'name' => 'Sales 2',
@@ -43,7 +48,11 @@ class UserSeeder extends Seeder
                 'password' => bcrypt('password'),
                 'created_at' => now(),
                 'uuid' => Str::uuid(),
-                'photo' => 'admin.jpg'
+                'photo' => 'admin.jpg',
+                'store_name' => 'COMTEK Computer Parts and Accessories Trading',
+                'store_address' => 'Unit X 2/F, Iponan Commercial Building, Iponan Cagayan de Oro City',
+                'store_email' => 'comtek23@gmail.com',
+                'store_phone' => '09066981847'
             ]
         ]);
 
