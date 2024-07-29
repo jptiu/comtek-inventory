@@ -43,7 +43,7 @@
                         <div class="invoice-info" style="padding-bottom: 20px;">
                             <div class="row">
                                 <div class="col-sm-6 mb-15">
-                                    {{-- <h4 class="inv-title-1">Customer</h4> --}}
+                                    <h4 class="inv-title-1">Customer</h4>
                                     <p class="inv-from-2" style="font-weight:600;">{{ $quotation->customer->name }}</p>
                                     <p class="inv-from-2">{{ $quotation->customer->address }}</p>
                                     <p class="inv-from-2">{{ $quotation->customer->phone }}</p>
@@ -101,10 +101,10 @@
                                                     {{ $item->product->name }}
                                                 </td>
                                                 <td class="align-middle text-center" style="font-size: 12px !important">
-                                                    {{ Number::currency($item->unit_price, 'PHP') }}
+                                                    {{ Number::currency($item->unit_price * (1+ env('TAX_RATE')/100), 'PHP') }}
                                                 </td>
                                                 <td class="align-middle text-center" style="font-size: 12px !important">
-                                                    {{ Number::currency($item->sub_total, 'PHP') }}
+                                                    {{ Number::currency($item->unit_price * $item->quantity * (1+ env('TAX_RATE')/100), 'PHP') }}
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -131,7 +131,7 @@
                                                 </strong>
                                             </td>
                                         </tr>
-                                        <tr>
+                                        {{-- <tr>
                                             <td colspan="5" class="text-end" style="font-size: 12px !important">
                                                 <strong>Tax</strong>
                                             </td>
@@ -140,14 +140,14 @@
                                                     {{ Number::currency($quotation->tax_amount, 'PHP') }}
                                                 </strong>
                                             </td>
-                                        </tr>
+                                        </tr> --}}
                                         <tr>
                                             <td colspan="5" class="text-end" style="font-size: 12px !important">
                                                 <strong>Total</strong>
                                             </td>
                                             <td class="align-middle text-center" style="font-size: 12px !important">
                                                 <strong>
-                                                    {{ Number::currency($quotation->total_amount, 'PHP') }}
+                                                    {{ Number::currency($quotation->total_amount + 1, 'PHP') }}
                                                 </strong>
                                             </td>
                                         </tr>

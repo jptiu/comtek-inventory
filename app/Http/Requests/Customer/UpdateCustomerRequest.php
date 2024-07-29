@@ -34,12 +34,10 @@ class UpdateCustomerRequest extends FormRequest
                 'max:50'
             ],
             'email' => [
-                'required',
                 'email',
                 'max:50'
             ],
             'phone' => [
-                'required',
                 'string',
                 'max:25'
             ],
@@ -53,7 +51,6 @@ class UpdateCustomerRequest extends FormRequest
                 'max:25'
             ],
             'address' => [
-                'required',
                 'string',
                 'max:100'
             ],

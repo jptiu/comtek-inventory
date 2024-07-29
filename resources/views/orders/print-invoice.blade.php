@@ -40,9 +40,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="invoice-info">
+                        <div class="invoice-info" style="padding-bottom: 20px;">
                             <div class="row">
                                 <div class="col-sm-6 mb-15">
+                                    <h4 class="inv-title-1">Customer</h4>
+                                    <p class="inv-from-2" style="font-weight:600;">{{ $order->customer->name }}</p>
+                                    <p class="inv-from-2">{{ $order->customer->address }}</p>
+                                    <p class="inv-from-2">{{ $order->customer->phone }}</p>
+                                    <p class="inv-from-2">{{ $order->customer->email }}</p>
                                 </div>
                                 @php
                                     $user = auth()->user();
@@ -59,6 +64,7 @@
                                 </div>
                             </div>
                         </div>
+                        <h5 class="align-middle text-center">Invoice</h5>
                         <div class="order-summary">
                             <div class="table-outer">
                                 <table class="default-table invoice-table">
@@ -90,15 +96,15 @@
                                                     {{ $item->product->name }}
                                                 </td>
                                                 <td class="align-middle text-center" style="font-size: 12px !important">
-                                                    {{ Number::currency($item->unitcost, 'PHP') }}
+                                                    {{ Number::currency($item->unitcost * (1+ env('TAX_RATE')/100), 'PHP') }}
                                                 </td>
                                                 <td class="align-middle text-center" style="font-size: 12px !important">
-                                                    {{ Number::currency($item->total, 'PHP') }}
+                                                    {{ Number::currency($item->total * (1+ env('TAX_RATE')/100), 'PHP') }}
                                                 </td>
                                             </tr>
                                         @endforeach
 
-                                        <tr>
+                                        {{-- <tr>
                                             <td colspan="5" class="text-end" style="font-size: 14px !important">
                                                 <strong>
                                                     Subtotal
@@ -106,11 +112,11 @@
                                             </td>
                                             <td class="align-middle text-center" style="font-size: 12px !important">
                                                 <strong>
-                                                    {{ Number::currency($order->sub_total, 'PHP') }}
+                                                    {{ Number::currency($order->sub_total * (1+ env('TAX_RATE')/100), 'PHP') }}
                                                 </strong>
                                             </td>
-                                        </tr>
-                                        <tr>
+                                        </tr> --}}
+                                        {{-- <tr>
                                             <td colspan="5" class="text-end" style="font-size: 14px !important">
                                                 <strong>Tax</strong>
                                             </td>
@@ -119,7 +125,7 @@
                                                     {{ Number::currency($order->vat, 'PHP') }}
                                                 </strong>
                                             </td>
-                                        </tr>
+                                        </tr> --}}
                                         <tr>
                                             <td colspan="5" class="text-end" style="font-size: 14px !important">
                                                 <strong>Total</strong>

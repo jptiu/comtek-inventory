@@ -510,6 +510,10 @@
                                 </div>
                             </form>
                         </div> --}}
+                        <a href="{{ route('orders.create') }}" class="btn btn-primary d-none d-sm-inline-block">
+                            <x-icon.plus />
+                            Create new order
+                        </a>
                     </div>
                 </div>
             </div>

@@ -55,11 +55,11 @@
                                     <div class="col-md-12">
                                         <x-input name="name" :required="true"/>
 
-                                        <x-input name="email" label="Email address" :required="true"/>
+                                        <x-input name="email_add" label="Email address" />
                                     </div>
 
                                     <div class="col-sm-6 col-md-6">
-                                        <x-input label="Phone Number" name="phone" :required="true"/>
+                                        <x-input label="Phone Number" name="phone_add" />
                                     </div>
 
                                     <div class="col-sm-6 col-md-6">
@@ -91,21 +91,15 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="address" class="form-label required">
+                                        <label for="address" class="form-label">
                                             Address
                                         </label>
 
-                                        <textarea name="address"
+                                        <textarea name="address_add"
                                                   id="address"
                                                   rows="3"
-                                                  class="form-control form-control-solid @error('address') is-invalid @enderror"
-                                            >{{ old('address') }}</textarea>
-
-                                        @error('address')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                        @enderror
+                                                  class="form-control form-control-solid"
+                                            >{{ old('address_add') }}</textarea>
                                     </div>
                                 </div>
                             </div>

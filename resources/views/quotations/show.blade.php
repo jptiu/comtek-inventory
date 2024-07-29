@@ -105,10 +105,10 @@
                                                     </span>
                                                 </td>
                                                 <td class="align-middle text-center">
-                                                    {{ number_format($item->unitcost, 2) }}
+                                                    {{ number_format($item->unit_price, 2) }}
                                                 </td>
                                                 <td class="align-middle text-center">
-                                                    {{ number_format($item->total, 2) }}
+                                                    {{ number_format($item->sub_total, 2) }}
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -126,7 +126,7 @@
                                                 Total
                                             </td>
                                             <td class="align-middle text-center">
-                                                {{ number_format($quotation->total_amount, 2) }}
+                                                {{ number_format($quotation->total_amount + 1, 2) }}
                                             </td>
                                         </tr>
 
