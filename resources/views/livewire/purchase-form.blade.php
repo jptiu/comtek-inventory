@@ -21,20 +21,26 @@
 
                     @else
 
-                        <select wire:model.live="invoiceProducts.{{$index}}.product_id"
-                                id="invoiceProducts[{{$index}}][product_id]"
-                                class="form-control text-center @error('invoiceProducts.' . $index . '.product_id') is-invalid @enderror"
-                        >
+                        <div class="position-relative">
+                            <input type="text" 
+                                   id="searchProduct_{{$index}}"
+                                   class="form-control text-center mb-2"
+                                   placeholder="Search product..."
+                                   oninput="searchProduct({{$index}}, this.value)"
+                            >
+                            <select wire:model.live="invoiceProducts.{{$index}}.product_id"
+                                    id="invoiceProducts[{{$index}}][product_id]"
+                                    class="form-control text-center @error('invoiceProducts.' . $index . '.product_id') is-invalid @enderror"
+                            >
+                                <option value="" class="text-center">-- choose product --</option>
 
-                            <option value="" class="text-center">-- choose product --</option>
-
-                            @foreach ($allProducts as $product)
-                                <option value="{{ $product->id }}" class="text-center">
-                                    {{ $product->name }}
-{{--                                    (${{ number_format($product->buying_price, 2) }})--}}
-                                </option>
-                            @endforeach
-                        </select>
+                                @foreach ($allProducts as $product)
+                                    <option value="{{ $product->id }}" class="text-center">
+                                        {{ $product->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
 
                         @error('invoiceProducts.' . $index)
                             <em class="text-danger">
@@ -146,4 +152,35 @@
 
         </tbody>
     </table>
+
+    <script>
+        function searchProduct(index, query) {
+            const searchInput = document.getElementById('searchProduct_' + index);
+            const select = document.getElementById('invoiceProducts[' + index + '][product_id]');
+            const options = select.getElementsByTagName('option');
+            
+            // Hide all options except the default one
+            for (let i = 0; i < options.length; i++) {
+                options[i].style.display = 'none';
+            }
+            
+            // Show matching options
+            for (let i = 1; i < options.length; i++) { // Start from 1 to skip default option
+                const optionText = options[i].textContent.toLowerCase();
+                const queryLower = query.toLowerCase();
+                
+                if (optionText.includes(queryLower)) {
+                    options[i].style.display = 'block';
+                }
+            }
+            
+            // If no match found, show all options
+            const visibleOptions = Array.from(options).filter(option => option.style.display !== 'none');
+            if (visibleOptions.length <= 1) { // Only default option is visible
+                for (let i = 1; i < options.length; i++) {
+                    options[i].style.display = 'block';
+                }
+            }
+        }
+    </script>
 </div>
