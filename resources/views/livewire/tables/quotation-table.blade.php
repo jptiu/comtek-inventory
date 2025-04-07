@@ -91,7 +91,7 @@
                         {{ $quotation->date->format('d-m-Y') }}
                     </td>
                     <td class="align-middle text-center">
-                        {{ $quotation->customer->name }}
+                        {{ $quotation->customer->name ?? $quotation->customer_name }}
                     </td>
                     <td class="align-middle text-center">
                         {{ Number::currency($quotation->total_amount, 'PHP') }}

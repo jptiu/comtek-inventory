@@ -64,14 +64,13 @@
                                 </div>
                             </div>
                         </div>
-                        <h5 class="align-middle text-center">Invoice</h5>
                         <div class="order-summary">
                             <div class="table-outer">
                                 <table class="default-table invoice-table">
                                     <thead>
                                         <tr>
                                             <th class="align-middle" style="font-size: 14px !important; width: 20px;">Item</th>
-                                            <th class="align-middle text-center" style="font-size: 14px !important; width: 20px;">QTY</th>
+                                            <th class="align-middle text-center" style="font-size: 14px !important; width: 20px;">Qty</th>
                                             <th class="align-middle text-center" style="font-size: 14px !important; width: 20px;">Unit</th>
                                             <th class="align-middle" style="font-size: 14px !important">Description</th>
                                             <th class="align-middle text-center" style="font-size: 14px !important">Price</th>
@@ -81,25 +80,26 @@
 
                                     <tbody>
                                         {{--                                            @foreach ($orderDetails as $item) --}}
-                                        @foreach ($order->details as $item)
+                                        @foreach ($order->details as $item => $key)
                                             <tr>
+												<input value="{{$item++}}" hidden />
                                                 <td class="align-middle" style="font-size: 12px !important">
-                                                    {{ $item->id }}
+                                                    {{ $item }}
                                                 </td>
                                                 <td class="align-middle text-center" style="font-size: 12px !important">
-                                                    {{ $item->quantity }}
+                                                    {{ $key->quantity }}
                                                 </td>
                                                 <td class="align-middle text-center" style="font-size: 12px !important">
-                                                    {{ $item->product->unit->name }}
+                                                    {{ $key->product->unit->name }}
                                                 </td>
                                                 <td class="align-middle" style="font-size: 12px !important">
-                                                    {{ $item->product->name }}
+                                                    {{ $key->product->name }}
                                                 </td>
                                                 <td class="align-middle text-center" style="font-size: 12px !important">
-                                                    {{ Number::currency($item->unitcost * (1+ env('TAX_RATE')/100), 'PHP') }}
+                                                    {{ Number::currency($key->unitcost * (1+ env('TAX_RATE')/100), 'PHP') }}
                                                 </td>
                                                 <td class="align-middle text-center" style="font-size: 12px !important">
-                                                    {{ Number::currency($item->total * (1+ env('TAX_RATE')/100), 'PHP') }}
+                                                    {{ Number::currency($key->total * (1+ env('TAX_RATE')/100), 'PHP') }}
                                                 </td>
                                             </tr>
                                         @endforeach

@@ -11,7 +11,7 @@
     'value'
 ])
 
-<div class="col-md-4">
+<div class="col-md-4 {{$label=='Customers'? 'w-full':''}}">
     <label for="{{ $id }}" class="form-label required" >
         {{ $label }}
     </label>

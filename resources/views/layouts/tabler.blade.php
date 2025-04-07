@@ -52,7 +52,7 @@
                         <img src="{{ asset('static/logo.png') }}" width="110" height="32" alt="Comtek"
                             class="navbar-brand-image">
                     </a>
-                    COMTEK
+                    COMTEK Computer Parts And Accessories Trading
                 </h1>
                 <div class="navbar-nav flex-row order-md-last">
                     <div class="d-none d-md-flex">
@@ -510,10 +510,10 @@
                                 </div>
                             </form>
                         </div> --}}
-                        <a href="{{ route('orders.create') }}" class="btn btn-primary d-none d-sm-inline-block">
+                        {{--<a href="{{ route('orders.create') }}" class="btn btn-primary d-none d-sm-inline-block">
                             <x-icon.plus />
                             Create new order
-                        </a>
+                        </a>--}}
                     </div>
                 </div>
             </div>

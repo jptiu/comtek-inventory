@@ -66,7 +66,7 @@
                     <th scope="col" class="align-middle text-center">
                         {{ __('Image') }}
                     </th>
-                    <th scope="col" class="align-middle text-center">
+                    <th style="width:100px;min-width:200px;max-width:200px;" scope="col" class="align-middle text-center whitespace-wrap">
                         <a wire:click.prevent="sortBy('name')" href="#" role="button">
                             {{ __('Name') }}
                             @include('inclues._sort-icon', ['field' => 'name'])
@@ -92,7 +92,7 @@
                     </th>
                     <th scope="col" class="align-middle text-center">
                         <a wire:click.prevent="sortBy('quantity')" href="#" role="button">
-                            {{ __('Quantity') }}
+                            {{ __('QTY') }}
                             @include('inclues._sort-icon', ['field' => 'quantity'])
                         </a>
                     </th>
@@ -105,14 +105,14 @@
                 @forelse ($products as $product)
                     <tr>
                         <td class="align-middle text-center">
-                            {{ $loop->iteration }}
+                            {{ $product->id }}
                         </td>
                         <td class="align-middle text-center">
                             <img style="width: 90px;"
                                 src="{{ $product->product_image ? asset('storage/' . $product->product_image) : asset('assets/img/products/default.webp') }}"
                                 alt="">
                         </td>
-                        <td class="align-middle text-center">
+                        <td style="min-width:300px;max-width:300px;text-wrap-mode:wrap;" class="align-middle text-center whitespace-nowrap">
                             {{ $product->name }}
                         </td>
                         <td class="align-middle text-center">

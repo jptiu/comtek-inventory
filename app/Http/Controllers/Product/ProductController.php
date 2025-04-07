@@ -53,16 +53,14 @@ class ProductController extends Controller
         if ($request->hasFile('product_image')) {
             $image = $request->file('product_image')->store('products', 'public');
         }
+        // Generate a unique code
+		$lastProduct = Product::orderBy('id', 'desc')->first();
+		$lastCode = $lastProduct ? intval(substr($lastProduct->code, 3)) : 0;
+		$newCode = 'PC-' . str_pad($lastCode + 1, 4, '0', STR_PAD_LEFT);
 
         DB::transaction(function () use ($request, $image) {
             $product = Product::create([
-                "code" => IdGenerator::generate([
-                    'table' => 'products',
-                    'field' => 'code',
-                    'length' => 6,
-                    'prefix' => 'PC'
-                ]),
-
+                'code' => $newCode,
                 'product_image'     => $image,
                 'name'              => $request->name,
                 'category_id'       => $request->category_id,

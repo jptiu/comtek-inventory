@@ -33,40 +33,6 @@ class UpdateSupplierRequest extends FormRequest
                 'string',
                 'max:50'
             ],
-            'email' => [
-                'required',
-                'email',
-                'max:50'
-            ],
-            'phone' => [
-                'required',
-                'string',
-                'max:25'
-            ],
-            'shopname' => [
-                'required',
-                'string',
-                'max:50'
-            ],
-            'type' => [
-                'required',
-                'string',
-                'max:25'
-            ],
-            'account_holder' => [
-                'max:50'
-            ],
-            'account_number' => [
-                'max:25'
-            ],
-            'bank_name' => [
-                'max:25'
-            ],
-            'address' => [
-                'required',
-                'string',
-                'max:100'
-            ]
         ];
     }
 }

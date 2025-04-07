@@ -73,7 +73,7 @@
                                             <th class="align-middle" style="font-size: 14px !important; width: 20px;">
                                                 Item</th>
                                             <th class="align-middle text-center"
-                                                style="font-size: 14px !important; width: 20px;">QTY</th>
+                                                style="font-size: 14px !important; width: 20px;">Qty</th>
                                             <th class="align-middle text-center"
                                                 style="font-size: 14px !important; width: 20px;">Unit</th>
                                             <th class="align-middle" style="font-size: 14px !important">Description</th>
@@ -86,10 +86,10 @@
 
                                     <tbody>
                                         {{--                                            @foreach ($quotationDetails as $item) --}}
-                                        @foreach ($quotation->quotationDetails as $item)
+                                        @foreach ($quotation->quotationDetails as $key => $item)
                                             <tr>
                                                 <td class="align-middle" style="font-size: 12px !important">
-                                                    {{ $item->id }}
+                                                    {{ $key+1 }}
                                                 </td>
                                                 <td class="align-middle text-center" style="font-size: 12px !important">
                                                     {{ $item->quantity }}

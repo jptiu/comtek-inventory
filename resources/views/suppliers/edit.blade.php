@@ -47,13 +47,13 @@
                                 <div class="row row-cards">
                                     <div class="col-md-12">
                                         <x-input name="name" :value="old('name', $supplier->name)" :required="true"/>
-                                        <x-input name="email" label="Email address" :value="old('email', $supplier->email)" :required="true"/>
-                                        <x-input name="shopname" label="Shop name" :value="old('shopname', $supplier->shopname)" :required="true"/>
-                                        <x-input name="phone" label="Phone number" :value="old('phone', $supplier->phone)" :required="true"/>
+                                        <x-input name="email" label="Email address" :value="old('email', $supplier->email)"/>
+                                        <x-input name="shopname" label="Shop name" :value="old('shopname', $supplier->shopname)"/>
+                                        <x-input name="phone" label="Phone number" :value="old('phone', $supplier->phone)"/>
                                     </div>
 
                                     <div class="col-sm-6 col-md-6">
-                                        <label for="type" class="form-label required">
+                                        <label for="type" class="form-label">
                                             Type of supplier
                                         </label>
 
@@ -73,7 +73,7 @@
                                     </div>
 
                                     <div class="col-sm-6 col-md-6">
-                                        <label for="bank_name" class="form-label required">
+                                        <label for="bank_name" class="form-label">
                                             Bank Name
                                         </label>
 
@@ -107,7 +107,7 @@
 
                                     <div class="col-md-12">
                                         <div class="mb-3">
-                                            <label for="address" class="form-label required">
+                                            <label for="address" class="form-label">
                                                 {{ __('Address ') }}
                                             </label>
 

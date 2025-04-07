@@ -4,7 +4,7 @@
 <div class="page-body">
     <div class="container-xl">
         <div class="row row-cards">
-            <div class="col-lg-7">
+            <div class="col-lg-6">
                 <div class="card">
                     <div class="card-header">
                         <div>
@@ -41,22 +41,14 @@
                                 </div>
 
                                 <div class="col-md-4">
-                                    <label class="small mb-1" for="customer_id">
-                                        {{ __('Customer') }}
-                                        <span class="text-danger">*</span>
-                                    </label>
 
-                                    <select class="form-select form-control-solid @error('customer_id') is-invalid @enderror" id="customer_id" name="customer_id">
-                                        <option selected="" disabled="">
-                                            Select a customer:
-                                        </option>
-
-                                        @foreach ($customers as $customer)
-                                            <option value="{{ $customer->id }}" @selected( old('customer_id') == $customer->id)>
-                                                {{ $customer->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                    <x-tom-select
+                                        label="Customers"
+                                        id="customer_id"
+                                        name="customer_id"
+                                        placeholder="Select Customer"
+                                        :data="$customers"
+                                    />
 
                                     @error('customer_id')
                                     <div class="invalid-feedback">
@@ -183,7 +175,7 @@
             </div>
 
 
-            <div class="col-lg-5">
+            <div class="col-lg-6">
                 <div class="card mb-4 mb-xl-0">
                     <div class="card-header">
                         List Product
@@ -217,7 +209,7 @@
                                     <thead class="thead-light">
                                         <tr>
                                             <th scope="col">Name</th>
-                                            <th scope="col">Quantity</th>
+                                            <th scope="col">QTY</th>
                                             <th scope="col">Unit</th>
                                             <th scope="col">Price</th>
                                             <th scope="col">Action</th>
@@ -283,6 +275,13 @@
 @pushonce('page-scripts')
     <script src="{{ asset('assets/js/img-preview.js') }}"></script>
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const barcodeInput = document.getElementById('barcodeScanner');
+            if (barcodeInput) {
+                barcodeInput.focus();
+            }
+        });
+
         function handleBarcode(e) {
             if (e.key === "Enter") {
                 const barcode = e.target.value.trim();
@@ -309,7 +308,6 @@
                 })
                 .then(product => {
                     if (product && product.id) {
-                        // Add product to cart
                         const formData = new FormData();
                         formData.append('id', product.id);
                         formData.append('name', product.name);
@@ -337,7 +335,6 @@
                         })
                         .catch(error => {
                             console.error('Error:', error);
-                            // alert('Failed to add product to cart');
                         });
                     } else {
                         alert('Product not found with this barcode');

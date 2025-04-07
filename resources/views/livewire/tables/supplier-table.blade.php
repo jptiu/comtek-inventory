@@ -40,10 +40,13 @@
         <table wire:loading.remove class="table table-bordered card-table table-vcenter text-nowrap datatable">
             <thead class="thead-light">
             <tr>
-                <th class="align-middle text-center w-1">
-                    {{ __('ID.') }}
-                </th>
                 <th scope="col" class="align-middle text-center">
+                    <a wire:click.prevent="sortBy('shopname')" href="#" role="button">
+                        {{ __('Shop name') }}
+                        @include('inclues._sort-icon', ['field' => 'shopname'])
+                    </a>
+                </th>
+				<th scope="col" class="align-middle text-center">
                     <a wire:click.prevent="sortBy('name')" href="#" role="button">
                         {{ __('Name') }}
                         @include('inclues._sort-icon', ['field' => 'name'])
@@ -56,21 +59,9 @@
                     </a>
                 </th>
                 <th scope="col" class="align-middle text-center">
-                    <a wire:click.prevent="sortBy('shopname')" href="#" role="button">
-                        {{ __('Shop name') }}
-                        @include('inclues._sort-icon', ['field' => 'shopname'])
-                    </a>
-                </th>
-                <th scope="col" class="align-middle text-center">
                     <a wire:click.prevent="sortBy('type')" href="#" role="button">
                         {{ __('Type') }}
                         @include('inclues._sort-icon', ['field' => 'type'])
-                    </a>
-                </th>
-                <th scope="col" class="align-middle text-center">
-                    <a wire:click.prevent="sortBy('created_at')" href="#" role="button">
-                        {{ __('Created at') }}
-                        @include('inclues._sort-icon', ['field' => 'created_at'])
                     </a>
                 </th>
                 <th scope="col" class="align-middle text-center">
@@ -82,7 +73,7 @@
             @forelse ($suppliers as $supplier)
                 <tr>
                     <td class="align-middle text-center">
-                        {{ $loop->index }}
+                        {{ $supplier->shopname }}
                     </td>
                     <td class="align-middle text-center">
                         {{ $supplier->name }}
@@ -91,16 +82,8 @@
                         {{ $supplier->email }}
                     </td>
                     <td class="align-middle text-center">
-                        {{ $supplier->shopname }}
-                    </td>
-                    <td class="align-middle text-center">
                         <span class="badge bg-primary text-white text-uppercase">
                             {{ $supplier->type }}
-                        </span>
-                    </td>
-                    <td class="align-middle text-center">
-                        <span class="">
-                            {{ $supplier->created_at->diffForHumans() }}
                         </span>
                     </td>
                     <td class="align-middle text-center">

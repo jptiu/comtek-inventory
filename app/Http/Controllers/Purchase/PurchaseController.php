@@ -75,6 +75,14 @@ class PurchaseController extends Controller
 
     public function store(StorePurchaseRequest $request)
     {
+		if(is_string($request->supplier_id) == true && is_numeric($request->supplier_id) == false){
+			\Log::info(is_string($request->supplier_id).' this:'.is_integer($request->supplier_id));
+			$supplier = new Supplier();
+			$supplier->user_id = auth()->user()->id;
+            $supplier->uuid = Str::uuid();
+            $supplier->name = $request->supplier_id;
+			$supplier->save();
+		}
         if ($request->invoiceProducts == null || $request->invoiceProducts[0]['total'] == 0) {
             return redirect()
             ->back()
@@ -90,7 +98,7 @@ class PurchaseController extends Controller
             'status'     => PurchaseStatus::PENDING->value,
             'created_by' => auth()->user()->id,
             'supplier_id.required' =>$request->required,
-            'supplier_id'   =>$request->supplier_id,
+            'supplier_id'   =>isset($supplier) == true ? $supplier->id : $request->supplier_id,
             'date'          =>$request->date,
             'total_amount'  =>$request->total_amount,
             'uuid'=>Str::uuid(),
