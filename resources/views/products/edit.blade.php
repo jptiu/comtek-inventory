@@ -268,7 +268,85 @@
                                                     </div>
                                                 @enderror
                                             </div>
-                                        </div>`
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="mb-3">
+                                                <label class="form-label">{{ __('Product Codes') }}</label>
+                                                <div id="productCodesContainer">
+                                                    @foreach($product->codes as $index => $code)
+                                                        <div class="input-group mb-2">
+                                                            <input type="text" class="form-control" 
+                                                                   placeholder="{{ __('Enter code...') }}" 
+                                                                   name="product_codes[{{ $index }}][code]" 
+                                                                   value="{{ $code->code }}" 
+                                                                   required>
+                                                            <select class="form-select" 
+                                                                    name="product_codes[{{ $index }}][type]" 
+                                                                    required>
+                                                                <option value="barcode" {{ $code->type === 'barcode' ? 'selected' : '' }}>{{ __('Barcode') }}</option>
+                                                                <option value="sku" {{ $code->type === 'sku' ? 'selected' : '' }}>{{ __('SKU') }}</option>
+                                                                <option value="other" {{ $code->type === 'other' ? 'selected' : '' }}>{{ __('Other') }}</option>
+                                                            </select>
+                                                            <div class="input-group-append">
+                                                                <button class="btn btn-outline-danger" 
+                                                                        type="button" 
+                                                                        onclick="removeProductCode(this)">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" 
+                                                                         class="icon icon-tabler icon-tabler-trash" 
+                                                                         width="24" 
+                                                                         height="24" 
+                                                                         viewBox="0 0 24 24" 
+                                                                         stroke-width="2" 
+                                                                         stroke="currentColor" 
+                                                                         fill="none" 
+                                                                         stroke-linecap="round" 
+                                                                         stroke-linejoin="round">
+                                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                                        <path d="M4 7l16 0" />
+                                                                        <path d="M10 11l0 6" />
+                                                                        <path d="M14 11l0 6" />
+                                                                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                                                                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                                                                    </svg>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                    <div class="input-group mb-2">
+                                                        <input type="text" class="form-control" 
+                                                               placeholder="{{ __('Enter code...') }}" 
+                                                               name="product_codes[new][code]">
+                                                        <select class="form-select" 
+                                                                name="product_codes[new][type]">
+                                                            <option value="barcode">{{ __('Barcode') }}</option>
+                                                            <option value="sku">{{ __('SKU') }}</option>
+                                                            <option value="other">{{ __('Other') }}</option>
+                                                        </select>
+                                                        <div class="input-group-append">
+                                                            <button class="btn btn-outline-primary" 
+                                                                    type="button" 
+                                                                    onclick="addProductCode()">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" 
+                                                                     class="icon icon-tabler icon-tabler-plus" 
+                                                                     width="24" 
+                                                                     height="24" 
+                                                                     viewBox="0 0 24 24" 
+                                                                     stroke-width="2" 
+                                                                     stroke="currentColor" 
+                                                                     fill="none" 
+                                                                     stroke-linecap="round" 
+                                                                     stroke-linejoin="round">
+                                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                                </svg>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 

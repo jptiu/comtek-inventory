@@ -122,21 +122,30 @@ class OrderController extends Controller
     public function update($uuid, Request $request)
     {
         $order = Order::where('uuid', $uuid)->firstOrFail();
-        // TODO refactoring
 
-        // Reduce the stock
+        // Reduce the stock and mark codes as sold
         $products = OrderDetails::where('order_id', $order->id)->get();
 
         $stockAlertProducts = [];
 
-        foreach ($products as $product) {
-            $productEntity = Product::where('id', $product->product_id)->first();
-            $newQty = $productEntity->quantity - $product->quantity;
-            if ($newQty < $productEntity->quantity_alert) {
-                $stockAlertProducts[] = $productEntity;
+        DB::transaction(function () use ($products, &$stockAlertProducts) {
+            foreach ($products as $product) {
+                $productEntity = Product::where('id', $product->product_id)->first();
+                
+                // Mark product codes as sold
+                $productCodes = $productEntity->codes()->where('is_sold', false)->limit($product->quantity)->get();
+                foreach ($productCodes as $code) {
+                    $code->markAsSold();
+                }
+
+                // Update product quantity
+                $newQty = $productEntity->quantity - $product->quantity;
+                if ($newQty < $productEntity->quantity_alert) {
+                    $stockAlertProducts[] = $productEntity;
+                }
+                $productEntity->update(['quantity' => $newQty]);
             }
-            $productEntity->update(['quantity' => $newQty]);
-        }
+        });
 
         if (count($stockAlertProducts) > 0) {
             $listAdmin = [];

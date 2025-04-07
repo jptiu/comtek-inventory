@@ -32,17 +32,17 @@
                             </div>
                         </div>
                     </div>
-                    <!---
+
                     <div class="col-lg-8">
                         <div class="card">
                             <div class="card-body">
                                 <div class="card-title">
-                                    Product Code
+                                    {{ __('Product Information') }}
                                 </div>
                                 <div class="row row-cards">
                                     <div class="col-md-6">
                                         <label class="small mb-1">
-                                            Product code
+                                            {{ __('Product Code') }}
                                         </label>
 
                                         <div class="form-control">
@@ -50,20 +50,30 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6 align-middle">
+                                    <div class="col-md-6">
                                         <label class="small mb-1">
-                                            Barcode
+                                            {{ __('Product Codes') }}
                                         </label>
 
-                                        <div class="mt-1">
-                                            {!! $barcode !!}
+                                        <div class="form-control">
+                                            @if($product->codes->count() > 0)
+                                                <ul class="list-unstyled">
+                                                    @foreach($product->codes as $code)
+                                                        <li>
+                                                            <span class="badge bg-primary me-2">{{ ucfirst($code->type) }}</span>
+                                                            {{ $code->code }}
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            @else
+                                                <span class="text-muted">No additional codes</span>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    --->
 
                     <div class="col-lg-8">
                         <div class="card">

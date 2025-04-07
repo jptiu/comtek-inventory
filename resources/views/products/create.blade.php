@@ -67,6 +67,59 @@
                                         />
                                     </div>
 
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="code" class="form-label">{{ __('Product Code') }}</label>
+                                            <input type="text" class="form-control @error('code') is-invalid @enderror" id="code" name="code" value="{{ old('code') }}" required>
+                                            @error('code')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">{{ __('Product Codes') }}</label>
+                                            <div id="productCodesContainer">
+                                                <div class="input-group mb-2">
+                                                    <input type="text" class="form-control" 
+                                                           placeholder="{{ __('Enter code...') }}" 
+                                                           name="product_codes[0][code]" 
+                                                           required>
+                                                    <select class="form-select" 
+                                                            name="product_codes[0][type]" 
+                                                            required>
+                                                        <option value="barcode">{{ __('Barcode') }}</option>
+                                                        <option value="sku">{{ __('SKU') }}</option>
+                                                        <option value="other">{{ __('Other') }}</option>
+                                                    </select>
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-outline-primary" 
+                                                                type="button" 
+                                                                onclick="addProductCode()">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" 
+                                                                 class="icon icon-tabler icon-tabler-plus" 
+                                                                 width="24" 
+                                                                 height="24" 
+                                                                 viewBox="0 0 24 24" 
+                                                                 stroke-width="2" 
+                                                                 stroke="currentColor" 
+                                                                 fill="none" 
+                                                                 stroke-linecap="round" 
+                                                                 stroke-linejoin="round">
+                                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="col-sm-6 col-md-6">
                                         <div class="mb-3">
                                             <label for="category_id" class="form-label">
@@ -117,8 +170,8 @@
                                             </label>
 
                                             @if ($units->count() === 1)
-                                                <select name="category_id" id="category_id"
-                                                        class="form-select @error('category_id') is-invalid @enderror"
+                                                <select name="unit_id" id="unit_id"
+                                                        class="form-select @error('unit_id') is-invalid @enderror"
                                                         readonly
                                                 >
                                                     @foreach ($units as $unit)
@@ -266,4 +319,55 @@
 
 @pushonce('page-scripts')
     <script src="{{ asset('assets/js/img-preview.js') }}"></script>
+    <script>
+        function addProductCode() {
+            const container = document.getElementById('productCodesContainer');
+            const index = container.children.length;
+            
+            const newRow = document.createElement('div');
+            newRow.className = 'input-group mb-2';
+            newRow.innerHTML = `
+                <input type="text" class="form-control" 
+                       placeholder="{{ __('Enter code...') }}" 
+                       name="product_codes[${index}][code]" 
+                       required>
+                <select class="form-select" 
+                        name="product_codes[${index}][type]" 
+                        required>
+                    <option value="barcode">{{ __('Barcode') }}</option>
+                    <option value="sku">{{ __('SKU') }}</option>
+                    <option value="other">{{ __('Other') }}</option>
+                </select>
+                <div class="input-group-append">
+                    <button class="btn btn-outline-danger" 
+                            type="button" 
+                            onclick="removeProductCode(this)">
+                        <svg xmlns="http://www.w3.org/2000/svg" 
+                             class="icon icon-tabler icon-tabler-trash" 
+                             width="24" 
+                             height="24" 
+                             viewBox="0 0 24 24" 
+                             stroke-width="2" 
+                             stroke="currentColor" 
+                             fill="none" 
+                             stroke-linecap="round" 
+                             stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M4 7l16 0" />
+                            <path d="M10 11l0 6" />
+                            <path d="M14 11l0 6" />
+                            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                        </svg>
+                    </button>
+                </div>
+            `;
+            
+            container.appendChild(newRow);
+        }
+
+        function removeProductCode(button) {
+            button.closest('.input-group').remove();
+        }
+    </script>
 @endpushonce

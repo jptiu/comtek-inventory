@@ -25,16 +25,18 @@ class StoreProductRequest extends FormRequest
     {
         return [
             'product_image'     => 'image|file|max:2048',
-            'name'              => 'required|string',
-            'category_id'       => 'required|integer',
-            'unit_id'           => 'required|integer',
-            'quantity'          => 'required|integer',
-            'buying_price'      => 'required|integer',
-            'selling_price'     => 'required|integer',
-            'quantity_alert'    => 'required|integer',
-            'tax'               => 'nullable|numeric',
-            'tax_type'          => 'nullable|integer',
-            'notes'             => 'nullable|max:1000'
+            'name'              => 'required|string|max:255',
+            'category_id'       => 'required|integer|exists:categories,id',
+            'unit_id'           => 'required|integer|exists:units,id',
+            'quantity'          => 'required|integer|min:0',
+            'buying_price'      => 'required|numeric|min:0',
+            'selling_price'     => 'required|numeric|min:0',
+            'quantity_alert'    => 'required|integer|min:0',
+            'tax'               => 'nullable|numeric|min:0',
+            'tax_type'          => 'nullable|string|in:percentage,amount',
+            'notes'             => 'nullable|string|max:1000',
+            'product_codes.*.code' => 'required|string|max:255|unique:product_codes,code',
+            'product_codes.*.type' => 'required|string|in:barcode,sku,other'
         ];
     }
 

@@ -191,6 +191,22 @@
                     <div class="card-body">
                         <div class="col-lg-12">
                             <form action="{{ route('order.search') }}" method="GET">
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <label class="form-label">Scan Barcode</label>
+                                        <div class="input-group">
+                                            <input type="text" 
+                                                   id="barcodeScanner" 
+                                                   class="form-control"
+                                                   placeholder="Scan or type barcode..."
+                                                   onkeypress="handleBarcode(event)"
+                                                   autocomplete="off">
+                                            <button class="btn btn-primary" type="button" onclick="clearBarcode()">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-refresh" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -5v5h5"></path><path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 5v-5h-5"></path></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="row gx-3 mb-3">
                                 <div class="input-group mb-3">
                                     <input type="text" name="search" class="form-control" placeholder="Search products..." value="{{ request()->query('search') }}">
                                     <button class="btn btn-outline-secondary" type="submit">Search</button>
@@ -266,4 +282,71 @@
 
 @pushonce('page-scripts')
     <script src="{{ asset('assets/js/img-preview.js') }}"></script>
+    <script>
+        function handleBarcode(e) {
+            if (e.key === "Enter") {
+                const barcode = e.target.value.trim();
+                if (barcode !== "") {
+                    e.target.value = "";
+                    addProductByBarcode(barcode);
+                }
+            }
+        }
+    
+        function clearBarcode() {
+            document.getElementById('barcodeScanner').value = '';
+        }
+    
+        function addProductByBarcode(barcode) {
+            const url = `/api/products/lookup/${barcode}`;
+            
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(product => {
+                    if (product && product.id) {
+                        // Add product to cart
+                        const formData = new FormData();
+                        formData.append('id', product.id);
+                        formData.append('name', product.name);
+                        formData.append('selling_price', product.selling_price);
+                        
+                        fetch(`{{ route('pos.addCartItem') }}`, {
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            }
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Failed to add product to cart');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (data.success) {
+                                window.location.reload();
+                            } else {
+                                alert('Error adding product to cart');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            // alert('Failed to add product to cart');
+                        });
+                    } else {
+                        alert('Product not found with this barcode');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error looking up product');
+                });
+        }
+    </script>
 @endpushonce

@@ -20,3 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('products/', [ProductController::class, 'index'])->name('api.product.index');
+Route::get('/products/lookup/{barcode}', [ProductController::class, 'lookupByBarcode']);
+Route::post('/products/mark-code-as-sold', [ProductController::class, 'markCodeAsSold']);
