@@ -67,7 +67,7 @@
                                         />
                                     </div>
 
-                                    <div class="col-md-6">
+                                    <!-- <div class="col-md-6">
                                         <div class="mb-3">
                                             <label for="code" class="form-label">{{ __('Product Code') }}</label>
                                             <input type="text" class="form-control @error('code') is-invalid @enderror" id="code" name="code" value="{{ old('code') }}" required>
@@ -77,7 +77,7 @@
                                                 </div>
                                             @enderror
                                         </div>
-                                    </div>
+                                    </div> -->
 
                                     <div class="col-md-12">
                                         <div class="mb-3">
@@ -87,10 +87,10 @@
                                                     <input type="text" class="form-control" 
                                                            placeholder="{{ __('Enter code...') }}" 
                                                            name="product_codes[0][code]" 
-                                                           required>
+                                                           >
                                                     <select class="form-select" 
                                                             name="product_codes[0][type]" 
-                                                            required>
+                                                            >
                                                         <option value="barcode">{{ __('Barcode') }}</option>
                                                         <option value="sku">{{ __('SKU') }}</option>
                                                         <option value="other">{{ __('Other') }}</option>
@@ -252,7 +252,7 @@
                                         />
                                     </div>
 
-                                    <div class="col-sm-6 col-md-6">
+                                    <!-- <div class="col-sm-6 col-md-6">
                                         <div class="mb-3">
                                             <label class="form-label" for="tax_type">
                                                 {{ __('Tax Type') }}
@@ -274,7 +274,7 @@
                                             </div>
                                             @enderror
                                         </div>
-                                    </div>
+                                    </div> -->
 
                                     <div class="col-md-12">
                                         <div class="mb-3">

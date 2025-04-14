@@ -58,17 +58,17 @@ class ProductController extends Controller
 		$lastCode = $lastProduct ? intval(substr($lastProduct->code, 3)) : 0;
 		$newCode = 'PC-' . str_pad($lastCode + 1, 4, '0', STR_PAD_LEFT);
 
-        DB::transaction(function () use ($request, $image) {
+        DB::transaction(function () use ($request, $image, $newCode) {
             $product = Product::create([
                 'code' => $newCode,
                 'product_image'     => $image,
                 'name'              => $request->name,
                 'category_id'       => $request->category_id,
                 'unit_id'           => $request->unit_id,
-                'quantity'          => $request->quantity,
+                'quantity'          => $request->quantity ?? 0,
                 'buying_price'      => $request->buying_price,
                 'selling_price'     => $request->selling_price,
-                'quantity_alert'    => $request->quantity_alert,
+                'quantity_alert'    => $request->quantity_alert ?? 0,
                 'tax'               => $request->tax??0,
                 'tax_type'          => $request->tax_type?? 0,
                 'notes'             => $request->notes,
@@ -78,18 +78,18 @@ class ProductController extends Controller
             ]);
 
             // Create product codes if provided
-            if ($request->has('product_codes')) {
-                foreach ($request->product_codes as $codeData) {
-                    $product->codes()->create([
-                        'code' => $codeData['code'],
-                        'type' => $codeData['type'],
-                        'is_primary' => false
-                    ]);
-                }
-            }
+            // if (isset($request->product_codes)) {
+            //     foreach ($request->product_codes as $codeData) {
+            //         $product->codes()->create([
+            //             'code' => $codeData['code'],
+            //             'type' => $codeData['type'],
+            //             'is_primary' => false
+            //         ]);
+            //     }
+            // }
         });
 
-        return to_route('products.index')->with('success', 'Product has been created!');
+        return back()->with('success', 'Product has been created!');
     }
 
     public function show($uuid)
@@ -160,14 +160,12 @@ class ProductController extends Controller
             $product->selling_price = $request->selling_price;
             $product->quantity_alert = $request->quantity_alert;
             $product->tax = $request->tax;
-            $product->tax_type = $request->tax_type;
+            $product->tax_type = $request->tax_type??0;
             $product->notes = $request->notes;
             $product->save();
         });
 
-        return redirect()
-            ->route('products.index')
-            ->with('success', 'Product has been updated!');
+        return back()->with('success', 'Product has been updated!');
     }
 
     public function destroy($uuid)

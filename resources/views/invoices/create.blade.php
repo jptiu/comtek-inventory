@@ -171,6 +171,27 @@
                                     </div>
                                 </div>
 
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label for="payment_terms" class="form-label required">
+                                            {{ __('Payment Terms') }}
+                                        </label>
+
+                                        <select class="form-control @error('payment_terms') is-invalid @enderror" id="payment_terms" name="payment_terms">
+                                            <option selected="" disabled="">Select a terms:</option>
+                                            <option value="15">15</option>
+                                            <option value="30">30</option>
+                                            <option value="45">45</option>
+                                        </select>
+
+                                        @error('payment_terms')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                </div>
+
                                 <div class="col-lg-12">
                                     <label for="pay" class="form-label required">
                                         {{ __('Amount Tendered') }}

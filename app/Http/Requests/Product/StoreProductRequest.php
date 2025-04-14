@@ -28,15 +28,15 @@ class StoreProductRequest extends FormRequest
             'name'              => 'required|string|max:255',
             'category_id'       => 'required|integer|exists:categories,id',
             'unit_id'           => 'required|integer|exists:units,id',
-            'quantity'          => 'required|integer|min:0',
+            'quantity'          => 'integer|min:0',
             'buying_price'      => 'required|numeric|min:0',
             'selling_price'     => 'required|numeric|min:0',
-            'quantity_alert'    => 'required|integer|min:0',
+            'quantity_alert'    => 'integer|min:0',
             'tax'               => 'nullable|numeric|min:0',
             'tax_type'          => 'nullable|string|in:percentage,amount',
             'notes'             => 'nullable|string|max:1000',
-            'product_codes.*.code' => 'required|string|max:255|unique:product_codes,code',
-            'product_codes.*.type' => 'required|string|in:barcode,sku,other'
+            // 'product_codes.*.code' => 'string|max:255|unique:product_codes,code',
+            // 'product_codes.*.type' => 'string|in:barcode,sku,other'
         ];
     }
 

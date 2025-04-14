@@ -69,6 +69,7 @@ class OrderController extends Controller
         $order = Order::create([
             'customer_id' => $request->customer_id,
             'payment_type' => $request->payment_type,
+            'payment_terms' => $request->payment_terms??null,
             'pay' => $request->pay,
             'order_date' => Carbon::now()->format('Y-m-d'),
             'order_status' => OrderStatus::PENDING->value,

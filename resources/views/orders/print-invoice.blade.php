@@ -57,9 +57,19 @@
                                         <p class="new-invoice-ref" style="font-size: 14px !important">
                                             Invoice # <span>{{ $order->invoice_no }}</span>
                                         </p>
+                                        @if( $order->payment_terms != null)
+                                            <p class="new-invoice-ref" style="font-size: 14px !important">
+                                                Payment Terms: <span>{{ $order->payment_terms }} Days</span>
+                                            </p>
+                                        @endif
                                         <p class="invo-addr-1" style="font-size: 14px !important">
-                                            Date: {{ $order->order_date->format('d-m-Y') }}
+                                            Date Ordered: {{ $order->order_date->format('d-m-Y') }}
                                         </p>
+                                        @if( $order->payment_terms != null)
+                                        <p class="invo-addr-1" style="font-size: 14px !important">
+                                            Date Paid: {{ now()->format('d-m-Y') }}
+                                        </p>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

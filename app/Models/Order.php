@@ -23,6 +23,7 @@ class Order extends Model
         'total',
         'invoice_no',
         'payment_type',
+        'payment_terms',
         'pay',
         'due',
         "user_id",
