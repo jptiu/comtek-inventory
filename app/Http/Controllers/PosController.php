@@ -55,7 +55,8 @@ class PosController extends Controller
     {
         $rules = [
             'qty' => 'required|numeric',
-            'product_id' => 'numeric'
+            'product_id' => 'numeric',
+            'discount_percentage' => 'numeric',
         ];
         
         $validatedData = $request->validate($rules);
@@ -66,7 +67,20 @@ class PosController extends Controller
         }
         
 
-        Cart::update($rowId, $validatedData['qty']);
+        $cartItem = Cart::get($rowId);
+        $product = Product::find($validatedData['product_id']);
+        \Log::info($request->discount_percentage.' this is discount percentage');
+        if ($product && $request->discount_percentage) {
+            $discountedPrice = $product->selling_price - ($product->selling_price * $request->discount_percentage / 100);
+            Cart::update($rowId, [
+            'qty' => $validatedData['qty'],
+            'price' => $discountedPrice,
+            'name' => $cartItem->name.' ('.number_format($request->discount_percentage, 0).'% discount)',
+            'discount_amount' => $request->discount_percentage,
+            ]);
+        } else {
+            Cart::update($rowId, $validatedData['qty']);
+        }
 
         return redirect()
             ->back()

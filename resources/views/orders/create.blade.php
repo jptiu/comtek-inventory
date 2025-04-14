@@ -17,7 +17,7 @@
                         </div>
                     </div>
                     <form action="{{ route('invoice.create') }}" method="POST">
-                    @csrf
+                        @csrf
                         <div class="card-body">
                             <div class="row gx-3 mb-3">
                                 @include('partials.session')
@@ -85,6 +85,7 @@
                                             <th scope="col" class="text-center">{{ __('Quantity') }}</th>
                                             <th scope="col" class="text-center">{{ __('Price') }}</th>
                                             <th scope="col" class="text-center">{{ __('SubTotal') }}</th>
+                                             <!-- <th scope="col" class="text-center">{{ __('Discount') }}</th> -->
                                             <th scope="col" class="text-center">
                                                 {{ __('Action') }}
                                             </th>
@@ -103,7 +104,7 @@
                                                     <div class="input-group">
                                                         <input type="number" class="form-control" name="qty" required value="{{ old('qty', $item->qty) }}">
                                                         <input type="hidden" class="form-control" name="product_id" value="{{ $item->id }}">
-
+                                                        <input type="hidden" class="form-control" name="discount_percentage" value="0">
                                                         <div class="input-group-append text-center">
                                                             <button type="submit" class="btn btn-icon btn-success border-none" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sumbit">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l5 5l10 -10" /></svg>
@@ -112,12 +113,14 @@
                                                     </div>
                                                 </form>
                                             </td>
-                                            <td class="text-center">
-                                                {{ $item->price }}
+                                            <!-- <td class="text-center">
+                                                {{ $item->selling_price ?? $item->price }}
+                                            </td> -->
+                                            <td class="text-center" name="subtotal">
+                                                {{ $item->subtotal }}
                                             </td>
                                             <td class="text-center">
                                                 {{ $item->subtotal }}
-                                            </td>
                                             <td class="text-center">
                                                 <form action="{{ route('pos.deleteCartItem', $item->rowId) }}" method="POST">
                                                     @method('delete')
@@ -133,7 +136,21 @@
                                             {{ __('Add Products') }}
                                         </td>
                                         @endforelse
-
+                                        
+                                        <tr>
+                                            <td colspan="4" class="text-end">Discount %
+                                                <input type="number" name="discount_input" class="form-control" value="" placeholder="0">
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="number" name="discount_amount" class="form-control" value="{{ old('discount_amount') }}" placeholder="0" readonly>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" class="text-end">Discount</td>
+                                            <td class="text-center">
+                                                {{ Cart::discount() }}
+                                            </td>
+                                        </tr>
                                         <tr>
                                             <td colspan="4" class="text-end">
                                                 Total Product
@@ -273,6 +290,27 @@
 @endsection
 
 @pushonce('page-scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const discountInput = document.querySelector('input[name="discount_input"]');
+        const discountAmountInput = document.querySelector('input[name="discount_amount"]');
+        const total = parseFloat("{{ Cart::total() }}".replace(/[^0-9.-]+/g, ""));
+        const discountPercentage = document.querySelector('input[name="discount_percentage"]');
+        // const subtotal = document.querySelector('input[name="subtotal"]');
+
+        if (discountInput && discountAmountInput) {
+            discountInput.addEventListener('change', () => {
+                const discount = parseFloat(discountInput.value) || 0;
+                const discountAmount = (discount / 100) * total;
+                discountAmountInput.value = discountAmount.toFixed(2);
+                discountPercentage.value = discount;
+                console.log(`Discount amount is ${discountAmount.toFixed(2)}`);
+                console.log(`Discount percentage is ${discount}`);
+            });
+        }
+    });
+</script>
+</script>
     <script src="{{ asset('assets/js/img-preview.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {

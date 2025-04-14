@@ -37,7 +37,12 @@ class OrderController extends Controller
 
         $customers = Customer::get(['id', 'name']);
 
-        $carts = Cart::content();
+        $carts = Cart::content()->map(function ($item) {
+            $product = Product::find($item->id);
+            $item->selling_price = $product ? $product->selling_price : null;
+            $item->name = $product ? $item->name : '0';
+            return $item;
+        });
 
         return view('orders.create', [
             'products' => $products,
@@ -66,24 +71,32 @@ class OrderController extends Controller
 
     public function store(OrderStoreRequest $request)
     {
+        // Compute discount amount if discount percentage is provided
+        $discountAmount = $request->discount_amount;
+        if ($request->discount_percentage) {
+            $discountAmount = (Cart::subtotal() * $request->discount_percentage) / 100;
+        }
+
         $order = Order::create([
             'customer_id' => $request->customer_id,
             'payment_type' => $request->payment_type,
-            'payment_terms' => $request->payment_terms??null,
+            'payment_terms' => $request->payment_terms ?? null,
             'pay' => $request->pay,
             'order_date' => Carbon::now()->format('Y-m-d'),
             'order_status' => OrderStatus::PENDING->value,
             'total_products' => Cart::count(),
             'sub_total' => Cart::subtotal(),
+            'discount_percentage' => $request->discount_percentage,
+            'discount_amount' => $discountAmount,
             'vat' => Cart::tax(),
-            'total' => Cart::total(),
+            'total' => Cart::total() - $discountAmount,
             'invoice_no' => IdGenerator::generate([
-                'table' => 'orders',
-                'field' => 'invoice_no',
-                'length' => 10,
-                'prefix' => 'INV-'
+            'table' => 'orders',
+            'field' => 'invoice_no',
+            'length' => 10,
+            'prefix' => 'INV-'
             ]),
-            'due' => (Cart::total() - $request->pay),
+            'due' => (Cart::total() - $discountAmount - $request->pay),
             'user_id' => auth()->id(),
             'uuid' => Str::uuid(),
         ]);
