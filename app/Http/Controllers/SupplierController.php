@@ -35,14 +35,14 @@ class SupplierController extends Controller
             "uuid" => Str::uuid(),
             'photo' => $image,
             'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'shopname' => $request->shopname,
+            'email' => $request->email?? null,
+            'phone' => $request->phone?? null,
+            'shopname' => $request->shopname?? null,
             'type' => $request->type,
-            'account_holder' => $request->account_holder,
-            'account_number' => $request->account_number,
-            'bank_name' => $request->bank_name,
-            'address' => $request->address,
+            'account_holder' => $request->account_holder?? null,
+            'account_number' => $request->account_number?? null,
+            'bank_name' => $request->bank_name?? null,
+            'address' => $request->address?? null,
         ]);
 
         return redirect()
