@@ -17,18 +17,18 @@
 
 @include('partials.session')
 
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
 
 <div class="page-body">
     <div class="container-xl">
+	@if ($errors->any())
+		<div class="alert alert-danger">
+			<ul>
+				@foreach ($errors->all() as $error)
+					<li>{{ $error }}</li>
+				@endforeach
+			</ul>
+		</div>
+	@endif
         <div class="row row-cards">
 
             <div class="row">
@@ -77,8 +77,8 @@
                                             <span class="text-danger">*</span>
                                         </label>
 
-                                        <select class="form-select @error('customer_id') is-invalid @enderror" id="customer_id" name="customer_id">
-                                            <option selected="" disabled="">
+                                        <select onchange="toggleButton()" class="form-select @error('customer_id') is-invalid @enderror" id="customer_id" name="customer_id">
+                                            <option selected="" value="" disabled="" required>
                                                 Select a customer:
                                             </option>
 
@@ -152,7 +152,7 @@
 
                                 <div class="col-md-12 mt-4">
                                     <div class="d-flex flex-wrap">
-                                        <button type="submit" class="btn btn-success add-list mx-1">
+                                        <button type="submit" class="btn btn-success add-list mx-1" id="submitBTN">
                                             {{ __('Create Quotation') }}
                                         </button>
                                     </div>
@@ -166,4 +166,21 @@
         </div>
     </div>
 </div>
+
+<script>
+	function toggleButton() {
+		var selectElement = document.getElementById('customer_id');
+		var buttonElement = document.getElementById('submitBTN');
+		console.log(selectElement.value);
+
+		if (selectElement.value === "") { // Or check for a specific "invalid" value
+			buttonElement.disabled = true;
+		} else {
+			buttonElement.disabled = false;
+		}
+	}
+
+	// Initial call to set the button's state on page load
+	document.addEventListener('DOMContentLoaded', toggleButton);
+</script>
 @endsection
