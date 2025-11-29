@@ -81,6 +81,7 @@
                                 <table class="table table-striped table-bordered align-middle">
                                     <thead class="thead-light">
                                         <tr>
+											<th scope="col">{{ __('#') }}</th>
                                             <th scope="col">{{ __('Product') }}</th>
                                             <th scope="col" class="text-center">{{ __('Quantity') }}</th>
                                             <th scope="col" class="text-center">{{ __('Price') }}</th>
@@ -94,10 +95,11 @@
                                     <tbody>
                                         @forelse ($carts as $item)
                                         <tr>
-                                            <td>
+											<td>{{$loop->iteration}}</td>
+                                            <td style="min-width: 100px;">
                                                 {{ $item->name }}
                                             </td>
-                                            <td style="min-width: 170px;">
+                                            <td style="min-width: 80px;">
                                                 <form></form>
                                                 <form action="{{ route('pos.updateCartItem', $item->rowId) }}" method="POST">
                                                     @csrf
@@ -221,7 +223,10 @@
                                     <button class="btn btn-outline-secondary" type="submit">Search</button>
                                 </div>
                             </form>
-                            <div class="table-responsive">
+							@php
+								$isPaginated = $products instanceof \Illuminate\Pagination\AbstractPaginator;
+							@endphp
+                            <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
                                 <table class="table table-striped table-bordered align-middle datatable">
                                     <thead class="thead-light">
                                         <tr>
@@ -272,12 +277,19 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="card-footer d-flex align-items-center">
-                        
-                                <ul class="pagination m-0 ms-auto">
-                                    {{ $products->links() }}    
-                                </ul>
-                            </div>
+                            @if ($isPaginated)
+								<div class="card-footer d-flex align-items-center">
+									<ul class="pagination m-0 ms-auto">
+										{{ $products->links() }}
+									</ul>
+								</div>
+								@else
+								<div class="card-footer d-flex align-items-center">
+									<ul class="pagination m-0 ms-auto">
+										
+									</ul>
+								</div>
+							@endif
                         </div>
 
                     </div>

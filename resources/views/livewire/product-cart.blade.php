@@ -20,6 +20,7 @@
             <table class="table table-bordered">
                 <thead class="thead-dark">
                 <tr>
+					<th class="align-middle">Item #</th>
                     <th class="align-middle">Product</th>
                     <th class="align-middle text-center">Net Unit Price</th>
                     <th class="align-middle text-center">Stock</th>
@@ -34,6 +35,9 @@
                     @if($cart_items->isNotEmpty())
                         @foreach($cart_items as $cart_item)
                             <tr>
+								<td class="align-middle">
+								{{$loop->iteration}} <br>
+                                </td>
                                 <td class="align-middle">
                                     {{ $cart_item->name }} <br>
                                     <span class="badge badge-success">

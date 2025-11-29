@@ -56,7 +56,7 @@ class OrderController extends Controller
         $query = $request->input('search');
         $products = Product::when($query, function ($queryBuilder) use ($query) {
             $queryBuilder->where('name', 'LIKE', "%{$query}%");
-        })->paginate(10);
+        })->get();
 
         $customers = Customer::get(['id', 'name']);
 

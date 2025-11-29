@@ -141,13 +141,18 @@ class ProductController extends Controller
                 $product->codes()->delete();
 
                 // Then create new ones
-                foreach ($request->product_codes as $codeData) {
-                    $product->codes()->create([
-                        'code' => $codeData['code'],
-                        'type' => $codeData['type'],
-                        'is_primary' => false
-                    ]);
-                }
+				foreach ($request->product_codes as $codeData) {
+					if (empty($codeData['code'])) {
+						continue; // skip empty entries
+					}
+
+					$product->codes()->create([
+						'code' => $codeData['code'],
+						'type' => $codeData['type'],
+						'is_primary' => false
+					]);
+				}
+
             }
 
             // Update other product fields
